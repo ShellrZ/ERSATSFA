@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <title>ERSATSFA</title>
+    <link rel="shortcut icon"  href="./images/favicon.ico?">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@700&family=Varela+Round&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="./styles.css">
+
+    <meta http-equiv="refresh" content="2400">
+</head>
+
+<body>
+    <div class="body-wrapper">
+        <header>
+            <div class="header-img-wrapper">
+                <img src="./images/header.gif" width="640" height="640" onmouseenter="bigImg(this)"
+                onmouseleave="normalImg(this)" >
+            </div>
+        </header>
+
+        <script>
+            function bigImg(x) {
+                x.style.opacity ='.7'
+            }
+
+            function normalImg(x) {
+                x.style.opacity ='1'
+            }
+        </script>
+            
+        
+        <section>
+
+            <div class="media-items-row centered" style="margin-bottom: 2rem;">
+                <div class="media-item">
+                        <h4 style="color:greenyellow">Press to start.stop the audio in space</h4>
+                <audio autoplay controls loop>
+                    <source src="/ersatsfa album/BIG_LOOP_wav.wav" type="audio/wav">
+                    Your browser does not support the audio tag.
+                </audio>
+            </div>
+            </div><br><br>
+
+            <h2>Introduction</h2>
+            <p>
+                This project was conducted in search of the realization of two musical principle, randomness in the composition process and the pursuit of rhythms. At its core lies the aspiration to transform every recording, every musical material, into a rhythmic pattern, even if broken, and to achieve this in the most prepared manner. The outcome of the research project is a MAX/MSP patch, based on a sound description algorithm.   
+            </p>
+            <p>
+                The patch, an electronic musical instrument based on recordings, segments the recordings into smaller units and assigns them numeric signatures according to preselected parameters (loudness, frequency, tone, etc.). The reduction of the recorded signal to numeric data allows to arrange the units in a two-dimensional axis system. This is a new and random, non-chronological (yet not devoid of logic) order of the units that compose the recording. Playing the recording according to this new logic reveals the "inner rhythm" of the material.
+            </p>
+            <p>
+                In the following paragraphs, the numeric signature that each unit receives will be described, along with the reason why it serves as the key to randomness. Some examples and explanations illustrate each stage in the patch's construction process. 
+            </p>
+                <br>
+            <p>
+                The first experimental piece recorded with the patch is a collection titled <a href="#album"><span style="color: var(--accent-color)!important;">"ERSATSFA"</span></a>, an improvisation on the patch alongside a drummer.
+            </p>
+        </section>
+        <section>
+            <h2>
+                Of Sound Desciption
+            </h2>
+            <div class="sub-heading">
+                Audio-descrpitive Analysis
+            </div>
+            <p>
+                In 2004, an article was published by G. Peeters<sup id="sp-1"><a href="#fn-1">1</a></sup>, a researcher at IRCAM laboratories, introducing 166 characteristics through which audio segments can be analysed. These characteristics were named descriptors, and they defined a language by which audio segments could be described. 
+            </p>
+            <p>
+                An audio descriptor is a piece of information related to the content of an audio signal<sup id="sp-2"><a href="#fn-2">2</a></sup>. It is kind of a label that allows us to encapsulate valuable information about the signal, enabling us to organize, retrieve, or perform processing actions on the audio content. Descriptors can be divided into two categories. The first comprises descriptors with musical-human significance, such as loudness, pitch, and spectral structure (timbre). The second category includes descriptors without direct musical significance but having mathematical significance, such as the number of times the signal crosses the zero axis.
+            </p>
+            <p>
+                In the process of sound descriptions, the recording (or a series of concatenated recordings) is sliced into small units, usually no longer than a second (Example 1). Each unit is analysed by selected descriptors, and the results are stored in a database.
+            </p>
+
+            
+
+            <div class="media-items-row centered">
+                <div class="media-item">
+                    <audio id="a" controls>
+                        <source src="./audio/drums crash_2.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        Example 1a: The original recording "Crash"  
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <audio id="b" controls>
+                        <source src="./audio/Piano 1.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        Example 1b: The original recording "Piano" 
+                    </h4>
+                </div>
+            </div>
+
+            <div class="media-items-row centered">
+                <div class="media-item">
+                    <img width="480" src="./images/crash2_slice.png" onmouseenter="bigImg(this)"
+                    onmouseleave="normalImg(this)" >
+                    <h4>
+                       "Crash" is sliced into tiny units
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <img width="480" src="./images/piano1_slice.png" onmouseenter="bigImg(this)"
+                    onmouseleave="normalImg(this)" >
+                    <h4>
+                        "Piano" is sliced into tiny units
+                    </h4>
+                </div>
+            </div>
+
+            <script>
+                var audio = document.getElementById("a");
+                var audio1 = document.getElementById("b");
+                audio.volume = 0.2;
+                audio1.volume = 0.2;
+            </script>
+            
+            <p>
+                For example, in the case where the chosen descriptor is loudness, each unit will receive a numeric data reflecting how loud it is (attempting to emulate human hearing). Now, the units composing the recording can be ordered not necessarily chronologically, but according to their intensity (Example 2).
+            </p>
+
+            <div class="media-items-row  centered">
+                <div class="media-item">
+                    <video id="c" width="480" height="480" controls>
+                        <source src="./videos/crash2_loudness.mp4" type="video/mp4" onmouseenter="bigImg(this)"
+                        onmouseleave="normalImg(this)" > 
+                        Your browser does not support the video tag.
+                    </video>
+                    <h4>
+                        Example 2a: Analysis of "Crash"<br> with the descriptor loudness
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <video id="d" width="480" height="480" controls>
+                        <source src="./videos/piano1_loudness.mp4" type="video/mp4" onmouseenter="bigImg(this)"
+                        onmouseleave="normalImg(this)" >
+                        Your browser does not support the video tag.
+                    </video>
+                    <h4>
+                        Example 2b: Analysis of "Piano"<br> with the descriptor loudness
+                    </h4>
+                </div>
+            </div>
+            
+            <script>
+                var video = document.getElementById("c");
+                var video1 = document.getElementById("d");
+                video.volume = 0.05;
+                video1.volume = 0.05;
+            
+            </script>
+
+            <p>
+                Playing the complete recording in this manner will break its original logic but will simultaneously introduce a new, no less musical, logic. If we add pitch analysis to the loudness analysis, each unit will have two numeric data points, one describing intensity and the other - pitch. If we now place these units on an axis system, we can obtain a two-dimensional arrangement categorizing the units into low-intensity-low-pitch and high-intensity-high-pitch sections (Example 3).
+            </p>
+            <div class="media-items-row centered">
+                <div class="media-item">
+                    <video id="e" width="480" height="480" controls>
+                        <source src="./videos/crash2_loudputch_high.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <h4>
+                        Example 3a: Analysis of the sample "Crash"<br> with two descriptors, loudness and pitch
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <video id="f" width="480" height="480" controls>
+                        <source src="./videos/piano1_loudpitch_high.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <h4>
+                        Example 3b: Analysis of the sample "Piano"<br> with two descriptors, loudness and pitch
+                    </h4>
+                </div>
+            </div>
+            
+            <script>
+                var video2 = document.getElementById("e");
+                var video3 = document.getElementById("f");
+                video2.volume = 0.05;
+                video3.volume = 0.05;
+            
+            </script>
+
+            <p>
+                The world of descriptors is not univocal. Even seemingly well-defined parameters like intensity and frequency can yield surprising results. The reasons for this variety range from statistical deviations to the difficulty of making a computer "hear" in the way humans do. Nevertheless, this gray area harbors blessed randomness.
+            </p>
+            <p><br>
+                The first attempts to integrate inherent compositional decision-making with data can be found as early as the 1950s.<sup id="sp-3"><a href="#fn-3">3</a></sup> Various techniques of working with recorded materials (Musique concrète, sampling, and granular synthesis)<sup id="sp-4"><a href="#fn-4">4</a></sup>  that emerged during those years required composers to characterize the sonic material according to defined parameters and create databases. The parameters categorized with these techniques – length, dynamics, pitch – whether or not they were yet named as such, were essentially descriptors with human-musical significance.
+            </p>
+            <p>
+                It's worth emphasizing again that Peeters' descriptors often lack direct musical significance; they are primarily mathematical equations. Paradoxically, it is due to this simplification of material into zeros and ones that allows us to enter the "insides" of the recordings. The tagged information comes directly from the sonic material itself, and therefore, its physical essence determines its new position (i.e., that of the one unit taken from the original recording). Hence arises randomness. The momentary distribution and displacement open the door to aligning the order with the intrinsic encoding of the musical materials.
+            </p>
+        </section>
+
+        <section>
+            <h2>
+                Building the Pacth
+            </h2>
+            <div class="sub-heading">
+                Autonomous Playing
+            </div>
+            <div class="media-item" style="width: 100%">
+                <video id="g" width="1118 " height="480" controls>
+                    <source src="./videos/full_patch_presentation.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            
+            <script>
+                var video4 = document.getElementById("g");
+                video4.volume = 0.05;
+            
+            </script>
+
+            <p>
+                Sound description is, in essence, an algorithm. Thus, to construct a tool capable of performing audio-descriptive analysis, a flexible and digital platform must be chosen. The tool, in this case, is a patch written in MAX/MSP using the external pack FluCoMa,<sup id="sp-5"><a href="#fn-5">5</a></sup> which generates digital tools for audio-descriptive analysis.
+            </p>
+            <p>
+                At the end of the research process, a MAX patch comprising three parts is constructed:
+            </p>
+            <div class="media-items-row">
+                <div class="media-item">
+                    <img src="./images/PATCH_4_SLICE.png" width="500" height="240" onmouseenter="bigImg(this)"
+                    onmouseleave="normalImg(this)" >
+                    <p style="text-align: start;">
+                        1. Initially, the system receives a recording,<br> saves it, and segments it into units.
+                    </p>
+                </div>
+                <div class="media-item">
+                    <img src="./images/PATCH_4_ADA.png" width="500" height="240" onmouseenter="bigImg(this)"
+                    onmouseleave="normalImg(this)" >
+                    <p style="text-align: start;">
+                        2. Subsequently, the recording undergoes<br> audio-descriptive analysis based on selected<br> descriptors. The results are normalized, and the<br> units are organized on a Cartesian coordinate<br> system.
+                    </p>
+                </div>
+                <div class="media-item">
+                    <img src="./images/PATCH_4_PLAY.png" width="500" height="240" onmouseenter="bigImg(this)"
+                    onmouseleave="normalImg(this)" >
+                    <p style="text-align: start;">
+                        3. Now, the system can be played in three ways:<br> manual movement on the coordinate system (using the mouse),<br> manipulation of the already segmented recording manually,<br> or random computer-generated playing.
+                    </p>
+                </div>
+            </div>
+            <p>
+                During the testing stage of the new tool, numerous experiments were conducted with a wide variety of recorded materials. The most interesting results were obtained from recordings rich in tones and sounds yet also relatively homogeneous ones. Recording manual movement, which primarily requires an understanding of the new order and an evaluation of the sound description outcome, proved to be the correct approach for achieving musical results.
+            </p>
+            <p>
+                Below are some examples of musical fragments that are the output of the patch:
+            </p>
+            <div class="media-items-row">
+                <div class="media-item">
+                    <audio id="h" controls>
+                        <source src="./audio/serengetti bass-1.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        Original recording 1
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <audio id="i" controls>
+                        <source src="./audio/serengetti drums-1.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        Original recording 2
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <audio id="j" controls>
+                        <source src="./audio/serengetti other-1.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        Original recording 3
+                    </h4>
+                </div>
+            </div>
+            <div class="media-items-row">
+                <div class="media-item">
+                    <audio id="k" controls>
+                        <source src="./audio/sernegeti_bass_patched.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        Patch output 1
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <audio id="l" controls>
+                        <source src="./audio/serengetti_drums_patched.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                       Patch output 2
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <audio id="m" controls>
+                        <source src="./audio/serengetti_other_patched.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        Patch output 3
+                    </h4>
+                </div>
+            </div>
+            
+            <script>
+                var audio2 = document.getElementById("h");
+                var audio3 = document.getElementById("i");
+                var audio4 = document.getElementById("j");
+                var audio5 = document.getElementById("k");
+                var audio6 = document.getElementById("l");
+                var audio7 = document.getElementById("m");
+                audio2.volume = 0.3;
+                audio3.volume = 0.3;
+                audio4.volume = 0.2;
+                audio5.volume = 0.3;
+                audio6.volume = 0.2;
+                audio7.volume = 0.2;
+            
+            </script>
+        </section>
+
+        
+
+        <section>
+            <h2 id="album">
+                Instrument Experimentation and the Collection "ERSATSFA"
+            </h2>
+            <p> <br>
+                The materials and outputs from the system are individual parts within a theoretical musical composition; they represent an intriguing basis for a broader musical creation, yet still don’t stand on their own. Alongside the patch's ability to generate new materials in real-time (from the analysed pre-recorded input), it positions itself as a musical instrument that can be played alongside other musicians.
+            </p>
+            <p>
+                Therefore, I chose to attempt to integrate the patch’s outputs into a dialogue with other musical instruments. In the recordings of "ERSATSFA," a first attempt at structured improvisation was made using the patch alongside a live drummer.
+            </p>
+                <div class="media-item">
+                    <h4 style="color:greenyellow; margin-block: 1rem;"> Listen to the album on the iPod on the left</h4>
+                    <img    
+                        onmouseenter="bigImg(this)"
+                        onmouseleave="normalImg(this)" 
+                        width="520" src="./images/cover.png">              
+                </div>
+        
+
+            <!----
+            <div class="media-items-row">
+                <div class="media-item">
+                    <h4 style="color:rgba(197, 161, 193, 0.877)">Intro</h4>
+                </div> 
+                <div class="media-item">   
+                    <audio controls> 
+                        <source src="./ersatsfa album/oNE_WAV.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio> 
+                </div> 
+            </div>
+
+            <div class="media-items-row">
+                <div class="media-item">
+                    <h4 style="color:rgba(197, 161, 193, 0.877)">Two</h4>
+                </div> 
+                <div class="media-item">   
+                    <audio controls> 
+                        <source src="./ersatsfa album/TWO_WAV.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio> 
+                </div> 
+            </div>
+
+            <div class="media-items-row">
+                <div class="media-item">
+                    <h4 style="color:rgba(197, 161, 193, 0.877)">Three</h4>
+                </div> 
+                <div class="media-item">   
+                    <audio controls> 
+                        <source src="./ersatsfa album/THREE_WAV.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio> 
+                </div> 
+            </div>
+
+            <div class="media-items-row">
+                <div class="media-item">
+                    <h4 style="color:rgba(197, 161, 193, 0.877)">Four, Tail</h4>
+                </div> 
+                <div class="media-item">   
+                    <audio controls> 
+                        <source src="./ersatsfa album/FOUR_WAV.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio> 
+                </div> 
+            </div>
+
+            <div class="media-items-row">
+                <div class="media-item">
+                    <h4 style="color:rgba(197, 161, 193, 0.877)">Five, Six</h4>
+                </div> 
+                <div class="media-item">   
+                    <audio controls> 
+                        <source src="./ersatsfa album/FIVE_WAV.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio> 
+                </div> 
+            </div>
+        -->
+
+            <h3><br>
+                ***
+            </h3>
+            <p>
+                The work done so far is part of a larger process, whose goal is already stated in the first sentence of this text: randomness in the compositional process and a pursuit of rhythms. Musical-algorithmic systems and sound description are merely tools on the way to achieving these goals.
+            </p>
+            <p><br>
+                In pursuit of the aspiration for randomness, I sought to construct a generative system that would define the "rules of the game" for musical composition. This contrasts with the classical compositional process, which is built on creating melodic lines and arranging them in the time domain. This aspiration was revealed as challenging, since complete automation of the composition process within a framework of general rules, at least in this experiment, fails to produce musically coherent materials. The human ear, which selects the musical materials that are created and judges them based on subjective aesthetic criteria, remains critical.
+            </p>    
+        </section>
+        
+        <section><div class="divider"></div></section>
+
+        <footer>
+            <p id="fn-1" class="footnote en">
+                <sup><a href="#sp-1">1</a></sup>
+                Geoffroy Peeters, "A large set of audio features for sound description (similarity and classification) in the CUIDADO project” CUIDADO Ist Project Report 54, no. 0 (2004): 1"
+            </p>
+            <p id="fn-2" class="footnote en">
+                <sup><a href="#sp-2">2</a></sup>
+                "Alex Harker: Meaningless Numbers? Using Audio Descriptors in a Musical Manner [30.10.2018]": <a href="https://www.youtube.com/watch?v=Sh7LvH39dsY&t" target="_blank"> link to video</a>
+            </p>
+            <p id="fn-3" class="footnote en">
+                <sup><a href="#sp-3">3</a></sup>
+                Diemo Schwarz, "Current research in concatenative sound synthesis” in International Computer Music Conference (ICMC) (2005), 2"
+            </p>
+            <p id="fn-4" class="footnote">
+                <sup><a href="#sp-4">4</a></sup>
+                Musique concrète - A musical movement that originated in France in the late 1940s, where field recordings are used as the sound material from which the musical composition is created. Sampling - The repetitive and varying embedding of sound samples from one composition into another. Granular Synthesis - A synthesis technique that involves chopping a sound sample into tiny grains (ranging in length from 1-100 ms) and performing direct musical processing operations on these grains
+            </p>
+            <p id="fn-5" class="footnote">
+                <sup><a href="#sp-5">5</a></sup>
+                Fluid Corpus Manipulation - A project aimed at creating tools for digital musicians in a world of big data and evolving technology. It focuses on providing machine learning tools for platforms like Pure Data, Super Collider, and MAX/MSP: <a href="https://www.flucoma.org/" target="_blank"> link to site</a>             
+            </p>
+        </footer>
+
+        <p style="opacity: .4; text-align: center;">
+            Written by Shelly Reizis in the New Music department at the Musrara School, July 2023<br>
+            Special thanks to Amir Bolzman. Thanks to Liel Fishbein, Guy Zilberman, Dan Lavie and Mordi Klein
+
+        </p>
+
+    </div>
+</body>   
+</html>
