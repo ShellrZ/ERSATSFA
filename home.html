@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <title>ללל אא ה</title>
+    <link rel="shortcut icon"  href="./images/favicon.ico?">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@700&family=Varela+Round&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="./styles.css">
+
+    <meta http-equiv="refresh" content="2400">
+</head>
+
+<body>
+    <div class="body-wrapper">
+        <header>
+            <div class="header-img-wrapper">
+                <img src="./images/header.gif" width="640" height="640" onmouseenter="bigImg(this)"
+                onmouseleave="normalImg(this)" >
+            </div>
+        </header>
+
+        <script>
+            function bigImg(x) {
+                x.style.opacity ='.7'
+            }
+
+            function normalImg(x) {
+                x.style.opacity ='1'
+            }
+        </script>
+            
+        
+        <section>
+
+            <div class="media-items-row">
+                <div class="media-item">
+                    <div class="sub-heading">
+                        להפעלת או הפסקת האודיו במרחב לחצו:
+                    </div>
+                <audio controls autoplay loop>
+                    <source src="./ersatsfa album/BIG_LOOP_wav.wav" type="audio/wav">
+                    Your browser does not support the audio tag.
+                </audio>
+            </div>
+            </div><br>
+
+            <h2>מבוא</h2>
+            <p>
+                פרויקט זה נהגה בחיפוש אחר שתי אידאיות מוזיקליות – אקראיות בתהליך הקומפוזיציה, ומרדף אחר מקצבים.  בבסיסו עומדת השאיפה להפוך כל הקלטה, כל חומר מוזיקלי, לתבנית ריתמית (גם אם שבורה), ולהצליח לעשות זאת בצורה הממוכנת ביותר. התוצאה של פרויקט המחקר הינה מערכת בפלטפורמה MAX.MSP, המבוססת על אלגוריתם אפיון שמע (sound description). 
+            </p>
+            <p>
+                המערכת היא כלי נגינה אלקטרוני מבוסס הקלטות. ההקלטות "נחתכות" ליחידות קטנות ועליהן מוטבעת חותמת מספרית בהתאם לפרמטרים שנבחרו מראש (עוצמה, תדירות, גוון ועוד). הרדוקציה של הסיגנל המוקלט לנתון מספרי מאפשרת את סידור היחידות במערכת צירים דו-ממדית. זהו סדר חדש ואקראי של היחידות מהן מורכבת ההקלטה – א-כרונולוגי, אך לא חסר היגיון. נגינה של ההקלטה לפי ההיגיון החדש חושפת את "המקצב הפנימי" של חומר הגלם.  
+            </p>
+            <p>
+                בפסקאות הבאות תתואר מהי החותמת המספרית שכל יחידה מקבלת ומדוע היא המפתח לאקראיות, לצד דוגמsאות והסברים על שלבי בניית המערכת. 
+            </p><br>
+            <p>
+                ניסוי הכלים הראשון שהוקלט הוא אוסף בשם <a href="#album"><span style="color: var(--accent-color)!important;">"ללל אא ה"</span></a> – אלתור חי בין המערכת למתופף.  
+            </p>
+        </section>
+        <section>
+            <h2>
+                על אפיון שמע 
+            </h2>
+            <div class="sub-heading">
+                ניתוח אודיו-דיסקרפטיבי
+            </div>
+            <p>
+                בשנת 2004 יצא לאור מאמר יבש למדי מאת ג'ופרי פיטרס (G. Peeters),<sup id="sp-1"><a href="#fn-1">1</a></sup>
+                חוקר במעבדות IRCAM, הפורט 166 מאפיינים שבאמצעותם ניתן לנתח פיסת אודיו. מאפיינים אלו נקראו דיסקריפטורים (descriptors), ואלו הגדירו שפה באמצעותה ניתן לתאר לקבצי שמע.  
+            </p>
+            <p>
+                אודיו-דיסקריפטור הוא שביב מידע בעל הקשר לתוכן של סיגנל אודיו.<sup id="sp-2"><a href="#fn-2">2</a></sup>
+                מדובר במעין תגיות המאפשרות לנו לאצור מידע בעל ערך על הסיגנל, ובכך למיין, לשלוף, או לבצע פעולות עיבודיות על התוכן הצלילי. ניתן לחלק דיסקריפטורים לשתי קבוצות. הראשונה, דיסקריפטורים בעלי משמעות מוזיקלית אנושית, כגון: עוצמה, גובה צליל ומבנה ספקטרלי (גוון). הקבוצה השנייה כוללת דיסקריפטורים ללא משמעות מוזיקלית ישירה אך בעלי משמעות מתמטית, למשל מספר הפעמים שהסיגנל חצה את ציר ה 0. 
+            </p>
+            <p>
+                בתהליך אפיון שמע, הקלטה (או מספר הקלטות משורשרות) נחתכת ליחידות קטנות, לרוב באורך שאינו עולה על שנייה אחת (דוגמה 1). כל יחידה מאופיינת על ידי דיסקריפטור או דיסקריפטורים נבחרים, והתוצאות נשמרות במאגר נתונים. 
+            </p>
+
+            
+
+            <div class="media-items-row">
+                <div class="media-item">
+                    <audio id="a" controls>
+                        <source src="./audio/drums crash_2.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        דוגמה 1.א: הקלטת המקור Crash
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <audio id="b" controls>
+                        <source src="./audio/Piano 1.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        דוגמה 1.ב: הקלטת המקור Piano
+                    </h4>
+                </div>
+            </div>
+
+            <div class="media-items-row">
+                <div class="media-item">
+                    <img width="480" src="./images/crash2_slice.png" onmouseenter="bigImg(this)"
+                    onmouseleave="normalImg(this)" >
+                    <h4>
+                        חיתוך הדגימה Crash לתתי יחידות
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <img width="480" src="./images/piano1_slice.png" onmouseenter="bigImg(this)"
+                    onmouseleave="normalImg(this)" >
+                    <h4>
+                        חיתוך הדגימה Piano לתתי יחידות
+                    </h4>
+                </div>
+            </div>
+
+            <script>
+                var audio = document.getElementById("a");
+                var audio1 = document.getElementById("b");
+                audio.volume = 0.2;
+                audio1.volume = 0.2;
+            </script>
+            
+            <p>
+                למשל, במקרה בו הדיסקריפטור הנבחר הוא עוצמה, כל יחידה תקבל נתון מספרי המשקף את העוצמה שלה (באופן המנסה לדמות את השמיעה האנושית). כעת, ניתן לסדר את היחידות המרכיבות את ההקלטה לאו דווקא בסדר כרונולוגי, כי אם לפי העוצמה שלהן (דוגמה 2).
+            </p>
+
+            <div class="media-items-row">
+                <div class="media-item">
+                    <video id="c" width="480" height="480" controls>
+                        <source src="./videos/crash2_loudness.mp4" type="video/mp4" onmouseenter="bigImg(this)"
+                        onmouseleave="normalImg(this)" > 
+                        Your browser does not support the video tag.
+                    </video>
+                    <h4>
+                        דוגמה 2.א: ניתוח הדגימה Crash לפי הדיסקרפיטור עוצמה
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <video id="d" width="480" height="480" controls>
+                        <source src="./videos/piano1_loudness.mp4" type="video/mp4" onmouseenter="bigImg(this)"
+                        onmouseleave="normalImg(this)" >
+                        Your browser does not support the video tag.
+                    </video>
+                    <h4>
+                         דוגמה 2.ב: ניתוח הדגימה Piano לפי הדיסקפריפטור עוצמה
+                    </h4>
+                </div>
+            </div>
+
+            <script>
+                var video = document.getElementById("c");
+                var video1 = document.getElementById("d");
+                video.volume = 0.05;
+                video1.volume = 0.05;
+            </script>
+
+            <p>
+                נגינה של ההקלטה השלמה באופן הזה ישבור אמנם את ההיגיון המקורי שלה אך בד בבד יחיל הגיון חדש, מוזיקלי לא פחות. אם נוסיף לניתוח העוצמה גם ניתוח גובה צליל, לכל יחידה יהיו שני נתונים מספריים, אחד המתאר את העוצמה ואחד את גובה הצליל. אם נניח כעת את היחידות על מערכת צירים, נוכל לקבל מערכת דו-מימדית המסדרת את היחידות במקבצים של עוצמה חלשה-צליל נמוך ועוצמה גבוהה-צליל גבוה (דוגמה 3).
+            </p>
+            <div class="media-items-row">
+                <div class="media-item">
+                    <video id="e" width="480" height="480" controls>
+                        <source src="./videos/crash2_loudputch_high.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <h4>
+                        דוגמה 3.א: ניתוח הדגימה Crash עם שני דיסרפקטורים,<br> עוצמה וגובה צליל
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <video id="f" width="480" height="480" controls>
+                        <source src="./videos/piano1_loudpitch_high.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <h4>
+                         דוגמה 3.ב: ניתוח הדגימה Piano עם שני דיסרפקטורים,<br> עוצמה וגובה צליל
+                    </h4>
+                </div>
+            </div>
+
+            <script>
+                var video2 = document.getElementById("e");
+                var video3 = document.getElementById("f");
+                video2.volume = 0.05;
+                video3.volume = 0.05;
+            </script>
+
+            <p>
+                עולם הדיסקריפטורים אינו חד משמעי. גם פרמטרים מובהקים כביכול, כגון עוצמה ותדירות יכולים להניב תוצאות מפתיעות. הסיבות לכן הינן מגוונות, ונעות בין סטיות תקן סטטיסטיות, לקושי לגרום למחשב "לשמוע" באופן שבו בני אדם שומעים.  עם זאת, דווקא אזור אפור זה טומן בחובו אקראיות מבורכת.	
+            </p>
+            <p><br>
+                ניתן למצוא עקבות לרצון לשלב בתהליך קבלת ההחלטות הקומפוזיטוריות התייחסות אינהרנטית לנתונים  ("דאטה"), שבתוך חומר הגלם המוזיקלי, כבר בשנות החמישים של המאה הקודמת.<sup id="sp-3"><a href="#fn-3">3</a></sup>  טכניקות שונות של עבודה עם חומרים מוקלטים (מוזיקה קונקרטית, סמפלינג, וסינתזה גרנולרית)<sup id="sp-4"><a href="#fn-4">4</a></sup>  שהחלו להופיע באותן שנים, דורשות מהמלחינים לאפיין את חומרי הגלם לפי פרמטרים מוגדרים וליצור מאגר נתונים. הפרמטרים שאופיינו בטכניקות אלו – אורך הקלטה או דגימה, דינמיקה, גובה צליל –  גם אם טרם כונו בשם זה, הם למעשה דיסקריפטורים בעלי משמעות מוזיקלית אנושית. 
+            </p>
+
+            <p>
+                ראוי להדגיש שוב כי לרוב הדיסקריפטורים של פיטרס אין משמעות מוזיקלית ישירה, הם בראש ובראשונה משוואות מתמטיות. דווקא משום כך, הפשטה של חומר הגלם לאפס-ים ואחד-ים מאפשרת כניסה ל"קרביים" של ההקלטות. המידע המתויג מגיע ישירות מהחומר הצלילי עצמו, ולכן מהותו ברמה הפיזיקלית היא זו שקובעת את המיקום החדש שלו (כלומר, של היחידה הבודדת הנלקחה מהקלטת המקור). מכאן נובעת האקראיות. ההזרה והריחוק הרגעיים פותחים צוהר להתאמת הסדר לקידוד הפנימי של החומרים המוזיקליים.  
+            </p>
+        </section>
+
+        <section>
+            <h2>
+                בניית המערכת
+            </h2>
+            <div class="sub-heading">
+                נגינה עצמאית
+            </div>
+            <div class="media-item">
+                <video id="g" width="1118 " height="480" controls>
+                    <source src="./videos/full_patch_presentation.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <script>
+                var video4 = document.getElementById("g");
+                video4.volume = 0.05;
+            </script>
+
+            <p>
+                אפיון שמע הוא למעשה אלגוריתם. מתוקף כך, על מנת לבנות כלי אשר יוכל לבצע ניתוח אודיו-דיסקרפטיבי יש לבחור בפלטפורמה גמישה ודיגיטלית. הכלי אם כן, הוא פאצ' (patch) שנכתב ב MAX.MSP תוך שימוש בחבילה החיצונית FluCoMa<sup id="sp-5"><a href="#fn-5">5</a></sup>, אשר מייצרת כלים דיגיטליים לניתוח אודיו-דיסקרפטיבי. 
+            </p>
+            <p>
+                בסיום תהליך מחקר, נבנה פאצ' MAX המורכב מ 3 חלקים:
+            </p>
+            <div class="media-items-row">
+                <div class="media-item">
+                    <img src="./images/PATCH_4_SLICE.png" width="500" height="240" onmouseenter="bigImg(this)"
+                    onmouseleave="normalImg(this)" >
+                    <p style="text-align: start;">
+                        1.	תחילה המערכת מקבלת הקלטה, שומרת אותה <br>וחותכת אותה ליחידות.
+                    </p>
+                </div>
+                <div class="media-item">
+                    <img src="./images/PATCH_4_ADA.png" width="500" height="240" onmouseenter="bigImg(this)"
+                    onmouseleave="normalImg(this)" >
+                    <p style="text-align: start;">
+                        2.	לאחר מכן ההקלטה עוברת ניתוח אודיו-דיסקפרטיבי <br>לפי דיסקפטורים נבחרים. התוצאות מנורמלות והיחידות <br>מסודרות על מערכת צירים קרטזית.
+                    </p>
+                </div>
+                <div class="media-item">
+                    <img src="./images/PATCH_4_PLAY.png" width="500" height="240" onmouseenter="bigImg(this)"
+                    onmouseleave="normalImg(this)" >
+                    <p style="text-align: start;">
+                        3.	כעת ניתן לנגן על המערכת בשלושה אופנים: <br>תנועה ידנית על מערכת הצירים (באמצעות העכבר), <br>מניפולציה על הקלטה ידנית שכבר נעשתה, <br>או נגינה אקראית של המחשב. 
+                    </p>
+                </div>
+            </div>
+            <p>
+                בשלב בדיקת הכלי החדש נעשו ניסיונות רבים עם מגוון רחב של חומרים מוקלטים. החומרים אשר הניבו את התוצאות המעניינות ביותר היו הקלטות עשירות בגוונים ובצלילים אך גם הומוגניות למדי. הקלטה של תנועה ידנית, אשר דורשת קודם כל הכרה של הסדר החדש ובחינה של תוצאת אפיון השמע התגלתה כדרך הנכונה להגיע לתוצאות מוזיקליות. 
+            </p>
+            <p>
+                להלן מספר דוגמאות לפרגמנטים מוזיקליים שהם פלט של המערכת:
+            </p>
+            <div class="media-items-row">
+                <div class="media-item">
+                    <audio id="h" controls>
+                        <source src="./audio/serengetti bass-1.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        הקלטת מקור 1
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <audio id="i" controls>
+                        <source src="./audio/serengetti drums-1.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        הקלטת מקור 2
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <audio id="j" controls>
+                        <source src="./audio/serengetti other-1.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        הקלטת מקור 3
+                    </h4>
+                </div>
+            </div>
+            <div class="media-items-row">
+                <div class="media-item">
+                    <audio id="k" controls>
+                        <source src="./audio/sernegeti_bass_patched.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        פלט מערכת 1
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <audio id="l" controls>
+                        <source src="./audio/serengetti_drums_patched.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        פלט מערכת 2
+                    </h4>
+                </div>
+                <div class="media-item">
+                    <audio id="m" controls>
+                        <source src="./audio/serengetti_other_patched.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio>
+                    <h4>
+                        פלט מערכת 3
+                    </h4>
+                </div>
+            </div>
+
+            <script>
+                var audio2 = document.getElementById("h");
+                var audio3 = document.getElementById("i");
+                var audio4 = document.getElementById("j");
+                var audio5 = document.getElementById("k");
+                var audio6 = document.getElementById("l");
+                var audio7 = document.getElementById("m");
+                audio2.volume = 0.3;
+                audio3.volume = 0.3;
+                audio4.volume = 0.2;
+                audio5.volume = 0.3;
+                audio6.volume = 0.2;
+                audio7.volume = 0.2;
+            </script>
+        </section>
+
+        
+
+        <section>
+            <h2 id="album">
+                ניסוי כלים והאוסף "ללל אא ה"
+            </h2>
+            <p> <br>
+                החומרים והתוצרים הנפלטים מן המערכת הינם קווים בודדים בתוך יצירה מוזיקלית תיאורטית; מדובר בסיס מעניין ליצירה מוזיקלית רחבה אך כזה שאינו עומד בפני עצמו. עובדה זו, לצד יכולתה של המערכת ליצור בזמן אמת חומרים חדשים (מהקלטה מוזנת ומנותחת מראש), מציבה אותה ככלי נגינה עליו ניתן לאלתר לצד נגנים אחרים. 
+            </p>
+            <p>
+                לכן, בחרתי לנסות לשלב את החומרים הנפלטים מהמערכת בדיאלוג עם כלים מוזיקליים נוספים. בהקלטות "ללל אא ה" נעשה ניסיון ראשון להלחנה מאולתרת באמצעות המערכת לצד מתופף חי. 
+            </p>
+            <div class="media-item">
+            <img    
+                onmouseenter="bigImg(this)"
+                onmouseleave="normalImg(this)" 
+                width="520" src="./images/cover.png">              
+            </div>
+
+            <div class="media-items-row">
+                <div class="media-item">   
+                    <audio controls> 
+                        <source src="./ersatsfa album/oNE_WAV.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio> 
+                </div> 
+                <div class="media-item">
+                    <h4 style="color:rgba(197, 161, 193, 0.877)">Intro</h4>
+                </div> 
+            </div>
+
+            <div class="media-items-row">
+                <div class="media-item">   
+                    <audio controls> 
+                        <source src="./ersatsfa album/TWO_WAV.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio> 
+                </div> 
+                <div class="media-item">
+                    <h4 style="color:rgba(197, 161, 193, 0.877)">Two</h4>
+                </div> 
+            </div>
+
+            <div class="media-items-row">
+                <div class="media-item">   
+                    <audio controls> 
+                        <source src="./ersatsfa album/THREE_WAV.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio> 
+                </div> 
+                <div class="media-item">
+                    <h4 style="color:rgba(197, 161, 193, 0.877)">Three</h4>
+                </div> 
+            </div>
+
+            <div class="media-items-row">
+                <div class="media-item">   
+                    <audio controls> 
+                        <source src="./ersatsfa album/FOUR_WAV.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio> 
+                </div> 
+                <div class="media-item">
+                    <h4 style="color:rgba(197, 161, 193, 0.877)">Four, Tail</h4>
+                </div> 
+            </div>
+
+            <div class="media-items-row">
+                <div class="media-item">   
+                    <audio controls> 
+                        <source src="./ersatsfa album/FIVE_WAV.wav" type="audio/wav">
+                        Your browser does not support the audio tag.
+                    </audio> 
+                </div> 
+                <div class="media-item">
+                    <h4 style="color:rgba(197, 161, 193, 0.877)">Five, Six</h4>
+                </div> 
+            </div>
+
+
+            <h3><br>
+                ***
+            </h3>
+            <p>
+                העבודה שנעשתה עד כה היא חלק מתהליך רחב יותר, שמטרתו נרשמה כבר במשפט הראשון של טקסט זה: אקראיות בתהליך הקומפוזיציה, ומרדף אחר מקצבים. מערכות מוזיקליות-אלגוריתמיות ואפיון שמע הם רק כלים בדרך להשיג מטרות אלו. 
+            </p>
+            <p><br>
+                במטרה לממש את השאיפה לאקראיות ביקשתי לבנות מערכת גנרטיבית בה יקבעו "חוקי המשחק" של הקומפוזיציה המוזיקלית. זאת בניגוד לתהליך הקומפוזיציה הקלאסי הבנוי על יצירת קווים מוזיקליים וסידורם במרחב הזמן. שאיפה זו התגלתה כנאיבית בחלקה, היות שאוטומציה מוחלטת של תהליך הקומפוזיציה בתוך מסגרת של חוקים כלליים, לפחות במסגרת ניסיון זה, לא מצליחה ליצור חומרים קוהרנטיים מוזיקלית. האוזן האנושית, הבוררת את החומרים המוזיקליים הנוצרים ובוחנת אותם על פי אמות מידה אסתטיות סובייקטיבית עודנה קריטית. 
+            </p>    
+        </section>
+        
+        <section><div class="divider"></div></section>
+
+        <footer>
+            <p id="fn-1" class="footnote en">
+                <sup><a href="#sp-1">1</a></sup>
+                Geoffroy Peeters, "A large set of audio features for sound description (similarity and classification) in the CUIDADO project” CUIDADO Ist Project Report 54, no. 0 (2004): 1"
+            </p>
+            <p id="fn-2" class="footnote en">
+                <sup><a href="#sp-2">2</a></sup>
+                "Alex Harker: Meaningless Numbers? Using Audio Descriptors in a Musical Manner [30.10.2018]": <a href="https://www.youtube.com/watch?v=Sh7LvH39dsY&t" target="_blank"> link to video</a>
+            </p>
+            <p id="fn-3" class="footnote en">
+                <sup><a href="#sp-3">3</a></sup>
+                Diemo Schwarz, "Current research in concatenative sound synthesis” in International Computer Music Conference (ICMC) (2005), 2"
+            </p>
+            <p id="fn-4" class="footnote">
+                <sup><a href="#sp-4">4</a></sup>
+                מוזיקה קונקרטית – תנועה מוזיקלית שהתפתחה בצרפת החל מסוף שנות הארבעים, בה נעשה שימוש בהקלטות שטח כחומר הגלם הצלילי ממנו נכתבת היצירה המוזיקלית; סמפלינג (sampling) – הטמעה חוזרת ונשנית של דגימה צלילית מיצירה אחת ביצירה אחרת; סינתזה גרנולרית (granular) – טכניקת סינתזה הכוללת חיתוך של דגימה לגרעינים קטנים (באורך הנא בין 1-100 ms) וביצוע פעולות עיבוד מוזיקליות ישירות על הגרעינים
+            </p>
+            <p id="fn-5" class="footnote">
+                <sup><a href="#sp-5">5</a></sup>
+                Fluid Corpus Manipulation - פרויקט שמטרתו ליצור כלים למוזיקאי הדיגיטלי, בעולם של ביג דאטה וטכנולוגיה מתפתחת. עוסקים בהנגשת כלי למידת מכונה לפלטפורמות הקוד: <a href="www.flucoma.org" target="_blank"> link to site</a> Pure Data, Super Collider, MAX.MSP  
+                 
+            </p>
+        </footer>
+
+        <p style="opacity: .4; text-align: center;">
+             נכתב ע"י שלי רייזיס במסגרת פרויקט גמר במחלקה למוזיקה חדשה בביה"ס מוסררה, יולי 2023.<br>
+            תודה לאמיר בולצמן. תודה לליאל פישביין, גיא זילברמן, דן לביא ומורדי קליין.
+
+        </p>
+<!--       <a href="http://localhost:8080/" target="_blank">play</a>-->
+
+    </div>
+</body>   
+</html>

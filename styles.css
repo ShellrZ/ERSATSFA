@@ -23,7 +23,7 @@ body {
   background: linear-gradient(15deg, #121212, #030303);
   color: rgb(228, 226, 226);
   font-size: 20px;
-  width: 128vw;
+  width: 100%;
 }
 
 img, video, audio {
